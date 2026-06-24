@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM – Product Details</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080810;--surface:#0f0f1a;--surface2:#1a1a2e;--surface3:#252540;--accent:#7c3aed;--accent2:#a855f7;--accent3:#c084fc;--text:#f0f0ff;--muted:#6b7280;--border:#1f1f35;--success:#22c55e;--danger:#ef4444;--warning:#f59e0b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+nav{position:sticky;top:0;z-index:999;background:rgba(8,8,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:12px;}
+.back-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 14px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:6px;}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);}
+.logo{font-size:18px;font-weight:900;letter-spacing:-1px;margin-left:auto;}
+.logo span{background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* PRODUCT */
+.product-hero{padding:24px 16px;text-align:center;background:linear-gradient(135deg,var(--surface),var(--surface2));}
+.product-emoji{font-size:100px;margin-bottom:16px;display:block;filter:drop-shadow(0 10px 30px rgba(124,58,237,0.3));}
+.product-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+.badge-tag{padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;}
+.badge-discount{background:#ef4444;color:#fff;}
+.badge-stock{background:#22c55e;color:#fff;}
+.badge-new{background:#7c3aed;color:#fff;}
+
+/* INFO */
+.product-info{padding:20px 16px;}
+.product-name{font-size:22px;font-weight:900;letter-spacing:-0.5px;margin-bottom:6px;}
+.product-sub{color:var(--muted);font-size:14px;margin-bottom:12px;}
+.rating-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.stars{color:#f59e0b;font-size:16px;}
+.rating-num{font-size:14px;font-weight:700;}
+.rating-count{color:var(--muted);font-size:13px;}
+.price-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px;}
+.price-main{font-size:32px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.price-old{font-size:16px;color:var(--muted);text-decoration:line-through;margin-left:8px;}
+.price-save{font-size:13px;color:#22c55e;font-weight:700;margin-top:4px;}
+.price-emi{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* VARIANTS */
+.variants{margin-bottom:16px;}
+.variants h4{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.variant-opts{display:flex;gap:8px;flex-wrap:wrap;}
+.variant-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.variant-btn.active{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:#fff;}
+
+/* QTY */
+.qty-section{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.qty-label{font-size:13px;font-weight:700;color:var(--muted);}
+.qty-ctrl{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;}
+.qty-btn{background:none;border:none;color:var(--text);width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.qty-btn:hover{background:var(--accent);}
+.qty-num{font-size:16px;font-weight:800;min-width:30px;text-align:center;}
+
+/* BTNS */
+.action-btns{display:flex;gap:10px;margin-bottom:24px;}
+.btn-cart{flex:1;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:15px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.4);}
+.btn-cart:hover{transform:translateY(-2px);}
+.btn-wish{background:var(--surface);border:1px solid var(--border);color:var(--text);width:52px;border-radius:14px;font-size:22px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
+.btn-wish:hover,.btn-wish.liked{background:#ef4444;border-color:#ef4444;color:#fff;}
+.btn-buy{width:100%;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;padding:15px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:24px;}
+
+/* FEATURES */
+.product-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.pf{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;}
+.pf-icon{font-size:24px;margin-bottom:6px;}
+.pf-title{font-size:12px;font-weight:700;}
+.pf-desc{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* SPECS */
+.specs{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:24px;}
+.specs h3{font-size:16px;font-weight:800;margin-bottom:14px;}
+.spec-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.spec-row:last-child{border-bottom:none;}
+.spec-key{color:var(--muted);font-weight:500;}
+.spec-val{font-weight:700;text-align:right;}
+
+/* DESCRIPTION */
+.desc-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:24px;}
+.desc-section h3{font-size:16px;font-weight:800;margin-bottom:12px;}
+.desc-section p{color:var(--muted);font-size:13px;line-height:1.8;}
+.desc-points{list-style:none;margin-top:12px;}
+.desc-points li{font-size:13px;color:var(--muted);padding:4px 0;display:flex;align-items:center;gap:8px;}
+.desc-points li::before{content:'✓';color:#7c3aed;font-weight:800;}
+
+/* REVIEWS */
+.reviews-section{margin-bottom:24px;}
+.reviews-section h3{font-size:16px;font-weight:800;margin-bottom:14px;}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px;}
+.review-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.review-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+.review-name{font-size:13px;font-weight:700;}
+.review-date{font-size:10px;color:var(--muted);}
+.review-stars{color:#f59e0b;font-size:12px;margin-bottom:5px;}
+.review-text{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* RELATED */
+.related{margin-bottom:24px;}
+.related h3{font-size:16px;font-weight:800;margin-bottom:14px;}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.related-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.related-card:hover{border-color:rgba(124,58,237,0.5);transform:translateY(-3px);}
+.related-img{height:90px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:36px;}
+.related-body{padding:10px;}
+.related-name{font-size:12px;font-weight:700;margin-bottom:4px;}
+.related-price{font-size:13px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all 0.3s;z-index:2000;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* STICKY BUY */
+.sticky-buy{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:12px 16px;display:flex;gap:10px;z-index:998;}
+.sticky-price{font-size:20px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;}
+.sticky-btn{flex:1;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:14px;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">← Back</a>
+  <div class="logo">⚡ PHANTOM<span>.</span></div>
+</nav>
+
+<div id="product-page" style="padding:0 0 80px;">
+
+  <!-- HERO -->
+  <div class="product-hero">
+    <span class="product-emoji" id="p-emoji">🎧</span>
+    <div class="product-badges">
+      <span class="badge-tag badge-discount" id="p-discount">50% OFF</span>
+      <span class="badge-tag badge-stock">✓ In Stock</span>
+      <span class="badge-tag badge-new">⭐ Top Rated</span>
+    </div>
+  </div>
+
+  <div class="product-info">
+
+    <!-- NAME & RATING -->
+    <div class="product-name" id="p-name">Wireless Earbuds Pro</div>
+    <div class="product-sub" id="p-sub">30hr Battery • ANC • IPX5 Waterproof</div>
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-num">4.9</span>
+      <span class="rating-count">(2,400+ reviews)</span>
+    </div>
+
+    <!-- PRICE -->
+    <div class="price-section">
+      <div>
+        <span class="price-main" id="p-price">₹999</span>
+        <span class="price-old" id="p-old">₹1,999</span>
+      </div>
+      <div class="price-save" id="p-save">You save ₹1,000 (50% off)!</div>
+      <div class="price-emi">EMI starts at ₹99/month</div>
+    </div>
+
+    <!-- VARIANTS -->
+    <div class="variants">
+      <h4>Color</h4>
+      <div class="variant-opts">
+        <button class="variant-btn active">⚫ Black</button>
+        <button class="variant-btn" onclick="selectVariant(this)">⚪ White</button>
+        <button class="variant-btn" onclick="selectVariant(this)">🔵 Blue</button>
+      </div>
+    </div>
+
+    <!-- QTY -->
+    <div class="qty-section">
+      <span class="qty-label">Quantity:</span>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qty">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="action-btns">
+      <button class="btn-cart" onclick="addToCart()">🛒 Add to Cart</button>
+      <button class="btn-wish" id="wishBtn" onclick="toggleWish()">♡</button>
+    </div>
+    <button class="btn-buy" onclick="buyNow()">⚡ Buy Now</button>
+
+    <!-- FEATURES -->
+    <div class="product-features">
+      <div class="pf"><div class="pf-icon">🚚</div><div class="pf-title">Free Delivery</div><div class="pf-desc">Orders above ₹499</div></div>
+      <div class="pf"><div class="pf-icon">↩️</div><div class="pf-title">7 Day Return</div><div class="pf-desc">Easy returns</div></div>
+      <div class="pf"><div class="pf-icon">✅</div><div class="pf-title">100% Original</div><div class="pf-desc">Genuine product</div></div>
+      <div class="pf"><div class="pf-icon">🔒</div><div class="pf-title">Secure Pay</div><div class="pf-desc">UPI & Cards</div></div>
+    </div>
+
+    <!-- SPECS -->
+    <div class="specs">
+      <h3>📋 Specifications</h3>
+      <div id="specs-list"></div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="desc-section">
+      <h3>📝 Description</h3>
+      <p id="p-desc"></p>
+      <ul class="desc-points" id="p-points"></ul>
+    </div>
+
+    <!-- REVIEWS -->
+    <div class="reviews-section">
+      <h3>⭐ Customer Reviews</h3>
+      <div id="reviews-list"></div>
+    </div>
+
+    <!-- RELATED -->
+    <div class="related">
+      <h3>🔥 Related Products</h3>
+      <div class="related-grid" id="related-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STICKY BUY -->
+<div class="sticky-buy">
+  <div class="sticky-price" id="sticky-price">₹999</div>
+  <button class="sticky-btn" onclick="addToCart()">🛒 Add to Cart</button>
+  <button class="sticky-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);" onclick="buyNow()">Buy Now ⚡</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const allProducts={
+  'Wireless Earbuds Pro':{emoji:'🎧',price:999,oldPrice:1999,sub:'30hr Battery • ANC • IPX5 Waterproof',discount:'50% OFF',specs:[['Battery Life','30 Hours'],['Connectivity','Bluetooth 5.3'],['Water Resistance','IPX5'],['Driver Size','10mm'],['Charging','USB-C Fast Charge'],['Weight','45g'],['Warranty','1 Year']],desc:'Experience premium sound quality with our Wireless Earbuds Pro. Featuring active noise cancellation technology that blocks out ambient noise, letting you focus on what matters most — your music.',points:['Active Noise Cancellation (ANC)','30-hour total battery life','IPX5 water resistance','Touch controls','Voice assistant support','Low latency gaming mode'],reviews:[{name:'Rahul S',stars:5,text:'Best earbuds I have ever used! ANC is incredible and sound quality is top notch.',date:'2 days ago'},{name:'Priya M',stars:5,text:'Perfect for gym and daily commute. Very comfortable and battery lasts all day!',date:'1 week ago'}],related:['Fast Charger 65W','BT Speaker','Over-Ear Headphones']},
+  'Fast Charger 65W':{emoji:'⚡',price:599,oldPrice:1200,sub:'GaN Technology • Universal • Safe Charge',discount:'51% OFF',specs:[['Power Output','65W'],['Technology','GaN'],['Ports','USB-C + USB-A'],['Compatibility','Universal'],['Safety','OVP/OCP/SCP'],['Size','Compact'],['Warranty','1 Year']],desc:'Charge your devices at lightning speed with our 65W GaN Fast Charger. Compatible with all devices including laptops, phones, and tablets.',points:['65W super fast charging','GaN technology — stays cool','2 ports charge simultaneously','Universal compatibility','Multiple safety protections','Compact travel-friendly design'],reviews:[{name:'Amit K',stars:5,text:'Charges my phone in 30 minutes! Amazing speed. Much better than original charger.',date:'3 days ago'},{name:'Sneha R',stars:4,text:'Great charger, very compact. Charges laptop and phone together.',date:'5 days ago'}],related:['Wireless Charger','USB-C Cable','Power Bank 20000mAh']},
+  'MagSafe Phone Case':{emoji:'📱',price:299,oldPrice:599,sub:'Military Drop Protection • MagSafe Compatible',discount:'50% OFF',specs:[['Material','TPU + PC'],['Drop Protection','Military Grade MIL-STD-810G'],['MagSafe','Compatible'],['Thickness','1.5mm'],['Grip','Anti-slip'],['Camera','Full Protection'],['Warranty','6 Months']],desc:'Protect your phone with military-grade drop protection. Our MagSafe compatible case offers the perfect blend of style and protection.',points:['Military grade drop protection','MagSafe wireless charging compatible','Raised camera lip protection','Anti-slip grip coating','Slim profile design','Easy button access'],reviews:[{name:'Vikram P',stars:5,text:'Dropped my phone 3 times, not a single scratch! Best case ever.',date:'1 week ago'},{name:'Ananya S',stars:4,text:'Perfect fit and MagSafe works great. Looks premium too!',date:'2 weeks ago'}],related:['Screen Protector','Wireless Charger','USB-C Cable']},
+  'Power Bank 20000mAh':{emoji:'🔋',price:1299,oldPrice:2499,sub:'PD 45W • LCD Display • Fast Charge',discount:'48% OFF',specs:[['Capacity','20000mAh'],['Output','45W PD'],['Input','30W Fast'],['Ports','USB-C + 2x USB-A'],['Display','LCD Battery Indicator'],['Charges Phone','4-5 Times'],['Warranty','1 Year']],desc:'Never run out of battery again with our 20000mAh power bank. Featuring a 45W PD output and LCD display to always know your battery status.',points:['20000mAh massive capacity','45W PD fast charging','LCD battery percentage display','Charge 3 devices simultaneously','Universal compatibility','TSA airline approved'],reviews:[{name:'Karan M',stars:5,text:'Charged my phone 5 times on a trip! LCD display is very helpful. Highly recommend.',date:'4 days ago'},{name:'Divya T',stars:5,text:'Best power bank I have used. Fast charging and great build quality.',date:'1 week ago'}],related:['Fast Charger 65W','USB-C Cable','Wireless Charger']},
+  'Screen Protector':{emoji:'🔲',price:199,oldPrice:399,sub:'9H Tempered Glass • Anti-scratch • HD Clear',discount:'50% OFF',specs:[['Hardness','9H'],['Thickness','0.33mm'],['Clarity','99% HD'],['Touch','Ultra Sensitive'],['Installation','Dust-free Kit'],['Type','Tempered Glass'],['Warranty','3 Months']],desc:'Protect your screen with our premium 9H tempered glass screen protector. Crystal clear clarity with maximum scratch protection.',points:['9H hardness scratch protection','99% HD clarity','Fingerprint resistant coating','Easy bubble-free installation','Ultra sensitive touch response','Edge-to-edge coverage'],reviews:[{name:'Rohan B',stars:4,text:'Easy to install and very clear. Good scratch protection.',date:'3 days ago'},{name:'Meera J',stars:5,text:'Perfect fit! Comes with installation kit which is very helpful.',date:'1 week ago'}],related:['MagSafe Phone Case','Wireless Charger','USB-C Cable']},
+  'Game Controller':{emoji:'🎮',price:799,oldPrice:1499,sub:'Bluetooth 5.0 • iOS & Android • Low Latency',discount:'47% OFF',specs:[['Connectivity','Bluetooth 5.0'],['Compatibility','iOS & Android'],['Battery','600mAh'],['Latency','Ultra Low'],['Buttons','Full Layout'],['Grip','Ergonomic'],['Warranty','1 Year']],desc:'Take your mobile gaming to the next level with our Bluetooth Game Controller. Compatible with all iOS and Android games.',points:['Ultra low latency gaming','Compatible with iOS & Android','Ergonomic comfort grip design','6+ hours battery life','Plug and play — no app needed','Works with all popular games'],reviews:[{name:'Aakash V',stars:5,text:'Game changer literally! PUBG and COD feel so much better with this controller.',date:'2 days ago'},{name:'Riya S',stars:4,text:'Great controller for the price. Easy to connect and comfortable to hold.',date:'6 days ago'}],related:['BT Speaker','USB-C Cable','Power Bank 20000mAh']},
+  'Over-Ear Headphones':{emoji:'🎙️',price:1499,oldPrice:2499,sub:'Hi-Fi Sound • Active Noise Cancellation • Foldable',discount:'40% OFF',specs:[['Driver','40mm Hi-Fi'],['ANC','Active Noise Cancellation'],['Battery','40 Hours'],['Connectivity','BT 5.0 + 3.5mm Jack'],['Foldable','Yes'],['Microphone','Built-in'],['Warranty','1 Year']],desc:'Immerse yourself in studio-quality sound with our Over-Ear Headphones. Featuring 40mm Hi-Fi drivers and active noise cancellation.',points:['40mm Hi-Fi sound drivers','Active noise cancellation','40-hour battery life','Foldable for easy storage','Works wired & wireless','Built-in microphone for calls'],reviews:[{name:'Nikhil R',stars:5,text:'Sound quality is absolutely incredible. ANC works really well in office.',date:'5 days ago'},{name:'Pooja M',stars:5,text:'Best headphones under 2000. Very comfortable for long hours.',date:'2 weeks ago'}],related:['Wireless Earbuds Pro','BT Speaker','USB-C Cable']},
+  'Wireless Charger':{emoji:'🌀',price:449,oldPrice:799,sub:'Qi2 • 15W Fast • Universal Compatibility',discount:'44% OFF',specs:[['Power','15W'],['Standard','Qi2'],['Compatibility','Universal'],['Indicator','LED'],['Surface','Anti-slip'],['Cable','USB-C Included'],['Warranty','1 Year']],desc:'Charge your phone effortlessly with our 15W Qi2 wireless charger. Compatible with all Qi-enabled devices.',points:['15W fast wireless charging','Qi2 universal standard','Anti-slip charging surface','LED charging indicator','USB-C cable included','Works through thin cases'],reviews:[{name:'Saurabh G',stars:4,text:'Works great with my phone. Charges quickly and LED indicator is helpful.',date:'1 week ago'},{name:'Kavya N',stars:5,text:'Love the design! Very sleek and charges my phone fast.',date:'2 weeks ago'}],related:['Fast Charger 65W','USB-C Cable','Power Bank 20000mAh']},
+  'USB-C Cable':{emoji:'🔗',price:149,oldPrice:399,sub:'3m • 100W PD • Nylon Braided • Durable',discount:'63% OFF',specs:[['Length','3 Meters'],['Power','100W PD'],['Data Speed','10Gbps'],['Material','Nylon Braided'],['Connector','USB-C to USB-C'],['Compatibility','Universal'],['Warranty','1 Year']],desc:'Our premium braided USB-C cable supports 100W power delivery and 10Gbps data transfer speeds. Built to last with nylon braiding.',points:['100W PD fast charging','10Gbps data transfer speed','3 meter extra long length','Durable nylon braided design','Tangle-free design','Universal USB-C compatibility'],reviews:[{name:'Harsh T',stars:5,text:'Best cable I have bought! Very long and charges super fast. Great quality.',date:'3 days ago'},{name:'Simran K',stars:5,text:'3 meters is perfect length. Nylon braiding feels very premium.',date:'5 days ago'}],related:['Fast Charger 65W','Wireless Charger','Power Bank 20000mAh']},
+  'BT Speaker':{emoji:'🔊',price:1099,oldPrice:1999,sub:'360° Sound • Waterproof IPX7 • 24hr Battery',discount:'45% OFF',specs:[['Sound','360° Omnidirectional'],['Water Resistance','IPX7'],['Battery','24 Hours'],['Bluetooth','5.0'],['Bass','Extra Deep'],['Mic','Built-in'],['Warranty','1 Year']],desc:'Fill any room with incredible 360° sound. Our portable Bluetooth speaker is waterproof, making it perfect for outdoor adventures.',points:['360° omnidirectional sound','IPX7 fully waterproof','24-hour battery life','Extra deep bass boost','Built-in microphone','Pair two speakers together'],reviews:[{name:'Arun P',stars:5,text:'Sound quality is mind blowing for this price! Used it at the beach, works perfectly.',date:'4 days ago'},{name:'Deepika S',stars:5,text:'Bass is incredible! Perfect for parties and outdoor use.',date:'1 week ago'}],related:['Wireless Earbuds Pro','Over-Ear Headphones','USB-C Cable']}
+};
+
+let qty=1,isWished=false;
+const params=new URLSearchParams(window.location.search);
+const pname=params.get('product')||'Wireless Earbuds Pro';
+const p=allProducts[pname]||allProducts['Wireless Earbuds Pro'];
+
+// LOAD PRODUCT
+document.getElementById('p-emoji').textContent=p.emoji;
+document.getElementById('p-name').textContent=pname;
+document.getElementById('p-sub').textContent=p.sub;
+document.getElementById('p-price').textContent='₹'+p.price.toLocaleString('en-IN');
+document.getElementById('p-old').textContent='₹'+p.oldPrice.toLocaleString('en-IN');
+document.getElementById('p-discount').textContent=p.discount;
+document.getElementById('sticky-price').textContent='₹'+p.price.toLocaleString('en-IN');
+const saved=p.oldPrice-p.price;
+document.getElementById('p-save').textContent='You save ₹'+saved.toLocaleString('en-IN')+' ('+p.discount+')!';
+document.title='PHANTOM – '+pname;
+
+// SPECS
+document.getElementById('specs-list').innerHTML=p.specs.map(s=>`<div class="spec-row"><span class="spec-key">${s[0]}</span><span class="spec-val">${s[1]}</span></div>`).join('');
+
+// DESC
+document.getElementById('p-desc').textContent=p.desc;
+document.getElementById('p-points').innerHTML=p.points.map(pt=>`<li>${pt}</li>`).join('');
+
+// REVIEWS
+document.getElementById('reviews-list').innerHTML=p.reviews.map(r=>`<div class="review-card"><div class="review-header"><div class="review-avatar">${r.name.charAt(0)}</div><div><div class="review-name">${r.name}</div><div class="review-date">${r.date}</div></div></div><div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><div class="review-text">${r.text}</div></div>`).join('');
+
+// RELATED
+document.getElementById('related-grid').innerHTML=p.related.map(name=>{const rp=allProducts[name];return rp?`<div class="related-card" onclick="location.href='product.html?product=${encodeURIComponent(name)}'"><div class="related-img">${rp.emoji}</div><div class="related-body"><div class="related-name">${name}</div><div class="related-price">₹${rp.price.toLocaleString('en-IN')}</div></div></div>`:''}).join('');
+
+function changeQty(d){qty=Math.max(1,qty+d);document.getElementById('qty').textContent=qty;}
+function selectVariant(btn){document.querySelectorAll('.variant-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function toggleWish(){isWished=!isWished;const btn=document.getElementById('wishBtn');btn.textContent=isWished?'♥':'♡';btn.classList.toggle('liked');showToast(isWished?'❤️ Added to wishlist!':'💔 Removed from wishlist');}
+function addToCart(){showToast('✅ '+pname+' x'+qty+' added to cart!');}
+function buyNow(){if(confirm('Buy '+pname+' x'+qty+' for ₹'+(p.price*qty).toLocaleString('en-IN')+'?'))showToast('🎉 Order placed! Thank you!');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+</script>
+</body>
+  </html>
