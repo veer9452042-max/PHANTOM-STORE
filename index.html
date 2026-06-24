@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM – Premium Mobile Accessories</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#080810;--surface:#0f0f1a;--surface2:#1a1a2e;--surface3:#252540;--accent:#7c3aed;--accent2:#a855f7;--accent3:#c084fc;--text:#f0f0ff;--muted:#6b7280;--border:#1f1f35;--success:#22c55e;--danger:#ef4444;--warning:#f59e0b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body.light{--bg:#f8f9ff;--surface:#ffffff;--surface2:#f0f0ff;--surface3:#e8e8ff;--text:#0a0a1a;--muted:#6b7280;--border:#e0e0f0;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s;}
+.loader.hide{opacity:0;pointer-events:none;}
+.loader-logo{font-size:36px;font-weight:900;letter-spacing:-2px;margin-bottom:20px;}
+.loader-logo span{background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.loader-bar{width:200px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.loader-progress{height:100%;background:linear-gradient(90deg,#7c3aed,#c084fc);border-radius:2px;animation:load 1.5s ease forwards;}
+@keyframes load{0%{width:0}100%{width:100%}}
+
+/* NAVBAR */
+nav{position:sticky;top:0;z-index:999;background:rgba(8,8,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.logo{font-size:20px;font-weight:900;letter-spacing:-1px;white-space:nowrap;}
+.logo span{background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-search{flex:1;max-width:300px;position:relative;}
+.nav-search input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:8px 16px 8px 36px;color:var(--text);font-size:13px;outline:none;transition:all 0.2s;}
+.nav-search input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,0.15);}
+.nav-search .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;}
+.search-results{position:absolute;top:110%;left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:8px;display:none;z-index:100;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+.search-results.show{display:block;}
+.search-item{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;transition:all 0.2s;}
+.search-item:hover{background:var(--surface2);}
+.nav-right{display:flex;gap:6px;align-items:center;}
+.icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;text-decoration:none;}
+.icon-btn:hover{border-color:#7c3aed;color:#7c3aed;}
+.cart-pill{display:flex;align-items:center;gap:5px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:8px 14px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 15px rgba(124,58,237,0.4);}
+.cart-pill:hover{transform:translateY(-2px);}
+.badge{background:rgba(255,255,255,0.25);border-radius:50px;padding:1px 7px;font-size:11px;font-weight:800;}
+
+/* HERO */
+.hero{padding:60px 20px 50px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.15);color:#c084fc;border:1px solid rgba(124,58,237,0.3);border-radius:50px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:20px;}
+.hero h1{font-size:clamp(28px,8vw,50px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:14px;}
+.hero h1 .gradient{background:linear-gradient(135deg,#7c3aed,#c084fc,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--muted);font-size:15px;max-width:340px;margin:0 auto 28px;line-height:1.7;}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:13px 26px;border-radius:50px;border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 20px rgba(124,58,237,0.4);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,0.6);}
+.btn-outline{background:transparent;color:var(--text);padding:13px 26px;border-radius:50px;border:1px solid var(--border);font-size:14px;font-weight:600;cursor:pointer;transition:all 0.25s;}
+.btn-outline:hover{border-color:#7c3aed;color:#7c3aed;}
+
+/* FLASH SALE */
+.flash-sale{margin:0 16px 40px;background:linear-gradient(135deg,#1a0030,#2d0060);border:1px solid rgba(124,58,237,0.5);border-radius:20px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.flash-left{display:flex;align-items:center;gap:10px;}
+.flash-icon{font-size:28px;}
+.flash-title{font-size:14px;font-weight:800;color:#fff;}
+.flash-sub{font-size:11px;color:#c084fc;margin-top:2px;}
+.timer{display:flex;gap:6px;align-items:center;}
+.timer-box{background:rgba(124,58,237,0.4);border:1px solid rgba(124,58,237,0.5);border-radius:8px;padding:6px 10px;text-align:center;min-width:40px;}
+.timer-num{font-size:18px;font-weight:900;color:#fff;line-height:1;}
+.timer-label{font-size:9px;color:#c084fc;margin-top:2px;}
+.timer-sep{font-size:18px;font-weight:900;color:#7c3aed;}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);margin-bottom:40px;}
+.marquee{display:flex;gap:40px;animation:marquee 20s linear infinite;white-space:nowrap;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-item{font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.marquee-item span{color:#c084fc;}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:0 16px 40px;border-radius:20px;overflow:hidden;}
+.stat{background:var(--surface);padding:18px 10px;text-align:center;}
+.stat-num{font-size:22px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:10px;color:var(--muted);margin-top:3px;font-weight:500;}
+
+/* SECTION */
+.section{padding:0 16px 40px;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-header h2{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+.section-header h2 span{background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.see-all{color:#c084fc;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;}
+
+/* CATS */
+.cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;}
+.cats::-webkit-scrollbar{display:none;}
+.cat-chip{flex-shrink:0;background:var(--surface);border:1px solid var(--border);padding:8px 16px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.cat-chip.active,.cat-chip:hover{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.4);}
+
+/* PRODUCTS */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all 0.3s;position:relative;}
+.card:hover{border-color:rgba(124,58,237,0.5);transform:translateY(-4px);box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+.card.hidden{display:none;}
+.card-img{height:130px;background:linear-gradient(135deg,var(--surface2),var(--surface3));display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;}
+.discount-tag{position:absolute;top:8px;left:8px;background:#ef4444;color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;}
+.new-tag{position:absolute;top:8px;left:8px;background:#22c55e;color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;}
+.hot-tag{position:absolute;top:8px;left:8px;background:#f59e0b;color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;}
+.wishlist-btn{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.wishlist-btn.liked{background:#ef4444;}
+.card-body{padding:12px;}
+.card-name{font-size:12px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.card-sub{font-size:10px;color:var(--muted);margin-bottom:5px;}
+.card-rating{font-size:10px;color:#f59e0b;margin-bottom:6px;}
+.card-rating span{color:var(--muted);margin-left:2px;}
+.price-row{display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+.price{font-size:15px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.old-price{font-size:10px;color:var(--muted);text-decoration:line-through;}
+.add-btn{width:100%;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:9px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.add-btn.added{background:linear-gradient(135deg,#22c55e,#16a34a);}
+
+/* COUPON */
+.coupon-section{margin:0 16px 40px;background:linear-gradient(135deg,#0f0a1a,#1a0f2e);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:20px;}
+.coupon-section h3{font-size:16px;font-weight:800;margin-bottom:6px;}
+.coupon-section p{color:var(--muted);font-size:12px;margin-bottom:14px;}
+.coupon-input{display:flex;gap:8px;}
+.coupon-input input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 14px;color:var(--text);font-size:13px;outline:none;}
+.coupon-input input:focus{border-color:#7c3aed;}
+.coupon-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;}
+.coupon-msg{font-size:12px;margin-top:8px;font-weight:600;}
+.coupon-msg.success{color:#22c55e;}
+.coupon-msg.error{color:#ef4444;}
+
+/* REVIEWS */
+.reviews{display:flex;flex-direction:column;gap:12px;}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;}
+.review-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a855f7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;}
+.review-name{font-size:13px;font-weight:700;}
+.review-date{font-size:10px;color:var(--muted);}
+.review-stars{color:#f59e0b;font-size:12px;margin-bottom:6px;}
+.review-text{font-size:12px;color:var(--muted);line-height:1.6;}
+.review-product{font-size:10px;color:#c084fc;margin-top:6px;font-weight:600;}
+
+/* ADD REVIEW */
+.add-review{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-top:12px;}
+.add-review h4{font-size:14px;font-weight:700;margin-bottom:12px;}
+.star-select{display:flex;gap:6px;margin-bottom:12px;font-size:24px;cursor:pointer;}
+.star-select span{color:var(--border);transition:color 0.2s;}
+.star-select span.selected{color:#f59e0b;}
+.review-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);font-size:13px;outline:none;resize:none;font-family:'Inter',sans-serif;}
+.review-input:focus{border-color:#7c3aed;}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 40px;}
+.feature{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;}
+.feature-icon{font-size:26px;margin-bottom:6px;}
+.feature-title{font-size:12px;font-weight:700;margin-bottom:3px;}
+.feature-desc{font-size:10px;color:var(--muted);line-height:1.5;}
+
+/* BANNER */
+.banner{margin:0 16px 40px;background:linear-gradient(135deg,#1e1040,#2d1b69);border:1px solid rgba(124,58,237,0.4);border-radius:22px;padding:24px 20px;position:relative;overflow:hidden;}
+.banner::before{content:'⚡';position:absolute;right:-10px;top:-10px;font-size:100px;opacity:0.08;}
+.banner-tag{background:rgba(124,58,237,0.3);color:#c084fc;font-size:10px;font-weight:700;padding:3px 10px;border-radius:50px;display:inline-block;margin-bottom:8px;}
+.banner h3{font-size:20px;font-weight:900;margin-bottom:5px;}
+.banner p{color:#c084fc;font-size:12px;margin-bottom:14px;}
+.code-box{background:rgba(0,0,0,0.3);border:1px dashed rgba(124,58,237,0.5);border-radius:8px;padding:6px 12px;display:inline-block;font-size:13px;font-weight:800;color:#c084fc;margin-bottom:14px;letter-spacing:2px;}
+
+/* WISHLIST PAGE */
+.wishlist-empty{text-align:center;padding:40px 20px;color:var(--muted);}
+.wishlist-empty div{font-size:48px;margin-bottom:12px;}
+
+/* CART */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;backdrop-filter:blur(6px);}
+.overlay.open{display:block;}
+.drawer{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);border-radius:26px 26px 0 0;padding:18px;z-index:1001;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);}
+.drawer.open{transform:translateY(0);}
+.drawer-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px;}
+.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.drawer-header h2{font-size:17px;font-weight:800;}
+.close-drawer{background:var(--surface2);border:none;color:var(--text);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;}
+.empty-cart{text-align:center;padding:36px 0;color:var(--muted);}
+.empty-cart div{font-size:46px;margin-bottom:10px;}
+.cart-item{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
+.cart-item-icon{font-size:30px;background:var(--surface2);border-radius:12px;padding:8px;min-width:50px;text-align:center;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:12px;font-weight:700;margin-bottom:3px;}
+.cart-item-price{font-size:13px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.qty-ctrl{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.qty-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);width:26px;height:26px;border-radius:7px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.qty-btn:hover{background:#7c3aed;border-color:#7c3aed;}
+.qty-num{font-size:13px;font-weight:800;min-width:22px;text-align:center;}
+.remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;}
+.remove-btn:hover{color:#ef4444;}
+.coupon-cart{display:flex;gap:8px;margin:12px 0;}
+.coupon-cart input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;}
+.coupon-cart input:focus{border-color:#7c3aed;}
+.coupon-cart button{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;}
+.cart-summary{background:var(--surface2);border-radius:14px;padding:14px;margin:12px 0;}
+.summary-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px;}
+.summary-row.total{color:var(--text);font-size:15px;font-weight:800;margin-bottom:0;}
+.checkout-btn{width:100%;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:15px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.4);margin-top:4px;}
+.checkout-btn:hover{transform:translateY(-2px);}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all 0.3s;z-index:2000;white-space:nowrap;box-shadow:0 4px 20px rgba(124,58,237,0.5);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* WHATSAPP */
+.whatsapp-btn{position:fixed;bottom:20px;right:16px;background:#25d366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.5);z-index:998;transition:all 0.2s;}
+.whatsapp-btn:hover{transform:scale(1.1);}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:30px 16px 24px;}
+.footer-logo{font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:8px;}
+.footer-logo span{background:linear-gradient(135deg,#7c3aed,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+footer p{color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:16px;}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+.footer-links a{color:var(--muted);font-size:12px;text-decoration:none;}
+.footer-links a:hover{color:#c084fc;}
+.footer-bottom{border-top:1px solid var(--border);padding-top:14px;color:var(--muted);font-size:11px;text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo">⚡ PHANTOM<span>.</span></div>
+  <div class="loader-bar"><div class="loader-progress"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">⚡ PHANTOM<span>.</span></div>
+  <div class="nav-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Search products..." oninput="searchProducts(this.value)" onfocus="showSearchResults()" id="searchInput">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+  <div class="nav-right">
+    <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <button class="icon-btn" onclick="showWishlist()">❤️</button>
+    <a href="auth.html" class="icon-btn">👤</a>
+    <button class="cart-pill" onclick="openCart()">🛒 <span class="badge" id="cart-count">0</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚡ FREE Delivery Above ₹499</div>
+  <h1>Premium Mobile<br><span class="gradient">Accessories</span></h1>
+  <p>Top-quality earbuds, chargers, cases & more — delivered fast!</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="scrollToProducts()">Shop Now 🚀</button>
+    <button class="btn-outline" onclick="window.location.href='auth.html'">Sell on PHANTOM 🏪</button>
+  </div>
+</div>
+
+<!-- FLASH SALE TIMER -->
+<div class="flash-sale">
+  <div class="flash-left">
+    <div class="flash-icon">⚡</div>
+    <div>
+      <div class="flash-title">Flash Sale!</div>
+      <div class="flash-sub">Extra 20% off on all products</div>
+    </div>
+  </div>
+  <div class="timer">
+    <div class="timer-box"><div class="timer-num" id="hours">00</div><div class="timer-label">HRS</div></div>
+    <div class="timer-sep">:</div>
+    <div class="timer-box"><div class="timer-num" id="mins">00</div><div class="timer-label">MIN</div></div>
+    <div class="timer-sep">:</div>
+    <div class="timer-box"><div class="timer-num" id="secs">00</div><div class="timer-label">SEC</div></div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <div class="marquee-item">⚡ Fast Charging <span>65W</span></div>
+    <div class="marquee-item">🎧 Premium Audio <span>ANC</span></div>
+    <div class="marquee-item">🛡️ Military Grade <span>Protection</span></div>
+    <div class="marquee-item">🔋 Power Banks <span>20000mAh</span></div>
+    <div class="marquee-item">🚚 Free Delivery <span>₹499+</span></div>
+    <div class="marquee-item">⭐ Rated <span>4.9/5</span></div>
+    <div class="marquee-item">🎮 Gaming <span>Accessories</span></div>
+    <div class="marquee-item">⚡ Fast Charging <span>65W</span></div>
+    <div class="marquee-item">🎧 Premium Audio <span>ANC</span></div>
+    <div class="marquee-item">🛡️ Military Grade <span>Protection</span></div>
+    <div class="marquee-item">🔋 Power Banks <span>20000mAh</span></div>
+    <div class="marquee-item">🚚 Free Delivery <span>₹499+</span></div>
+    <div class="marquee-item">⭐ Rated <span>4.9/5</span></div>
+    <div class="marquee-item">🎮 Gaming <span>Accessories</span></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">10K+</div><div class="stat-label">Customers</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Products</div></div>
+  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Rating</div></div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="section">
+  <div class="section-header"><h2>Shop by <span>Category</span></h2></div>
+  <div class="cats">
+    <div class="cat-chip active" onclick="filterCat('all',this)">⚡ All</div>
+    <div class="cat-chip" onclick="filterCat('audio',this)">🎧 Audio</div>
+    <div class="cat-chip" onclick="filterCat('charging',this)">🔌 Charging</div>
+    <div class="cat-chip" onclick="filterCat('protection',this)">🛡️ Cases</div>
+    <div class="cat-chip" onclick="filterCat('gaming',this)">🎮 Gaming</div>
+    <div class="cat-chip" onclick="filterCat('cables',this)">🔗 Cables</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" style="padding-top:0" id="products-section">
+  <div class="section-header"><h2>Our <span>Products</span></h2><button class="see-all">See all →</button></div>
+  <div class="products" id="products">
+    <div class="card" data-cat="audio" data-name="Wireless Earbuds Pro"><div class="card-img">🎧<span class="discount-tag">50% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Wireless Earbuds Pro',999,'🎧')">♡</button></div><div class="card-body"><div class="card-name">Wireless Earbuds Pro</div><div class="card-sub">30hr Battery • ANC • IPX5</div><div class="card-rating">★★★★★ <span>(2.4k)</span></div><div class="price-row"><span class="price">₹999</span><span class="old-price">₹1,999</span></div><button class="add-btn" onclick="addToCart(this,'Wireless Earbuds Pro',999,'🎧')">Add to Cart</button></div></div>
+    <div class="card" data-cat="charging" data-name="Fast Charger 65W"><div class="card-img">⚡<span class="discount-tag">51% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Fast Charger 65W',599,'⚡')">♡</button></div><div class="card-body"><div class="card-name">Fast Charger 65W GaN</div><div class="card-sub">Universal • Compact • Safe</div><div class="card-rating">★★★★★ <span>(1.8k)</span></div><div class="price-row"><span class="price">₹599</span><span class="old-price">₹1,200</span></div><button class="add-btn" onclick="addToCart(this,'Fast Charger 65W',599,'⚡')">Add to Cart</button></div></div>
+    <div class="card" data-cat="protection" data-name="MagSafe Phone Case"><div class="card-img">📱<span class="discount-tag">50% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'MagSafe Phone Case',299,'📱')">♡</button></div><div class="card-body"><div class="card-name">MagSafe Phone Case</div><div class="card-sub">Military Drop Protection</div><div class="card-rating">★★★★☆ <span>(963)</span></div><div class="price-row"><span class="price">₹299</span><span class="old-price">₹599</span></div><button class="add-btn" onclick="addToCart(this,'MagSafe Phone Case',299,'📱')">Add to Cart</button></div></div>
+    <div class="card" data-cat="charging" data-name="Power Bank 20000mAh"><div class="card-img">🔋<span class="discount-tag">48% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Power Bank 20000mAh',1299,'🔋')">♡</button></div><div class="card-body"><div class="card-name">Power Bank 20000mAh</div><div class="card-sub">PD 45W • LCD Display</div><div class="card-rating">★★★★★ <span>(3.1k)</span></div><div class="price-row"><span class="price">₹1,299</span><span class="old-price">₹2,499</span></div><button class="add-btn" onclick="addToCart(this,'Power Bank 20000mAh',1299,'🔋')">Add to Cart</button></div></div>
+    <div class="card" data-cat="protection" data-name="Screen Protector"><div class="card-img">🔲<span class="discount-tag">50% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Screen Protector',199,'🔲')">♡</button></div><div class="card-body"><div class="card-name">9H Screen Protector</div><div class="card-sub">Anti-scratch • HD Clear</div><div class="card-rating">★★★★☆ <span>(742)</span></div><div class="price-row"><span class="price">₹199</span><span class="old-price">₹399</span></div><button class="add-btn" onclick="addToCart(this,'Screen Protector',199,'🔲')">Add to Cart</button></div></div>
+    <div class="card" data-cat="gaming" data-name="Game Controller"><div class="card-img">🎮<span class="discount-tag">47% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Game Controller',799,'🎮')">♡</button></div><div class="card-body"><div class="card-name">BT Game Controller</div><div class="card-sub">iOS & Android • Low Latency</div><div class="card-rating">★★★★★ <span>(1.5k)</span></div><div class="price-row"><span class="price">₹799</span><span class="old-price">₹1,499</span></div><button class="add-btn" onclick="addToCart(this,'Game Controller',799,'🎮')">Add to Cart</button></div></div>
+    <div class="card" data-cat="audio" data-name="Over-Ear Headphones"><div class="card-img">🎙️<span class="discount-tag">40% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'Over-Ear Headphones',1499,'🎙️')">♡</button></div><div class="card-body"><div class="card-name">Over-Ear Headphones</div><div class="card-sub">Hi-Fi Sound • Foldable</div><div class="card-rating">★★★★★ <span>(2.0k)</span></div><div class="price-row"><span class="price">₹1,499</span><span class="old-price">₹2,499</span></div><button class="add-btn" onclick="addToCart(this,'Over-Ear Headphones',1499,'🎙️')">Add to Cart</button></div></div>
+    <div class="card" data-cat="charging" data-name="Wireless Charger"><div class="card-img">🌀<span class="new-tag">NEW</span><button class="wishlist-btn" onclick="toggleWish(this,'Wireless Charger',449,'🌀')">♡</button></div><div class="card-body"><div class="card-name">Wireless Charger 15W</div><div class="card-sub">Qi2 • All Devices</div><div class="card-rating">★★★★☆ <span>(881)</span></div><div class="price-row"><span class="price">₹449</span><span class="old-price">₹799</span></div><button class="add-btn" onclick="addToCart(this,'Wireless Charger',449,'🌀')">Add to Cart</button></div></div>
+    <div class="card" data-cat="cables" data-name="USB-C Cable"><div class="card-img">🔗<span class="discount-tag">60% OFF</span><button class="wishlist-btn" onclick="toggleWish(this,'USB-C Cable',149,'🔗')">♡</button></div><div class="card-body"><div class="card-name">Braided USB-C Cable 3m</div><div class="card-sub">100W PD • Nylon Braided</div><div class="card-rating">★★★★★ <span>(4.2k)</span></div><div class="price-row"><span class="price">₹149</span><span class="old-price">₹399</span></div><button class="add-btn" onclick="addToCart(this,'USB-C Cable',149,'🔗')">Add to Cart</button></div></div>
+    <div class="card" data-cat="audio" data-name="BT Speaker"><div class="card-img">🔊<span class="hot-tag">HOT</span><button class="wishlist-btn" onclick="toggleWish(this,'BT Speaker',1099,'🔊')">♡</button></div><div class="card-body"><div class="card-name">Portable BT Speaker</div><div class="card-sub">360° Sound • Waterproof</div><div class="card-rating">★★★★★ <span>(1.1k)</span></div><div class="price-row"><span class="price">₹1,099</span><span class="old-price">₹1,999</span></div><button class="add-btn" onclick="addToCart(this,'BT Speaker',1099,'🔊')">Add to Cart</button></div></div>
+  </div>
+  <div id="no-results" style="display:none;text-align:center;padding:30px;color:var(--muted);">😕 No products found!</div>
+</div>
+
+<!-- COUPON SECTION -->
+<div class="coupon-section">
+  <h3>🎫 Have a Coupon?</h3>
+  <p>Enter your coupon code to get instant discount!</p>
+  <div class="coupon-input">
+    <input type="text" id="couponInput" placeholder="Enter code (try PHANTOM10)">
+    <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+  </div>
+  <div class="coupon-msg" id="couponMsg"></div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-tag">🔥 LIMITED TIME</div>
+  <h3>Buy 2, Save Extra 10%</h3>
+  <p>Add any 2 products and use code below!</p>
+  <div class="code-box">PHANTOM10</div><br>
+  <button class="btn-primary" style="font-size:13px;padding:10px 22px;" onclick="scrollToProducts()">Grab Deal →</button>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <div class="section-header"><h2>Customer <span>Reviews</span></h2></div>
+  <div class="reviews" id="reviews-list">
+    <div class="review-card"><div class="review-header"><div class="review-avatar">R</div><div><div class="review-name">Rahul Sharma</div><div class="review-date">2 days ago</div></div></div><div class="review-stars">★★★★★</div><div class="review-text">Amazing quality! The earbuds sound incredible and battery lasts all day. Delivery was super fast too!</div><div class="review-product">📦 Wireless Earbuds Pro</div></div>
+    <div class="review-card"><div class="review-header"><div class="review-avatar">P</div><div><div class="review-name">Priya Patel</div><div class="review-date">5 days ago</div></div></div><div class="review-stars">★★★★★</div><div class="review-text">Best phone case I've ever bought! Perfect fit and the drop protection is real. Dropped my phone twice, no damage!</div><div class="review-product">📦 MagSafe Phone Case</div></div>
+    <div class="review-card"><div class="review-header"><div class="review-avatar">A</div><div><div class="review-name">Amit Kumar</div><div class="review-date">1 week ago</div></div></div><div class="review-stars">★★★★☆</div><div class="review-text">Great power bank, charges my phone 4 times! LCD display is a nice touch. Slightly heavy but worth it.</div><div class="review-product">📦 Power Bank 20000mAh</div></div>
+  </div>
+  <div class="add-review">
+    <h4>⭐ Write a Review</h4>
+    <div class="star-select" id="starSelect">
+      <span onclick="selectStar(1)">★</span>
+      <span onclick="selectStar(2)">★</span>
+      <span onclick="selectStar(3)">★</span>
+      <span onclick="selectStar(4)">★</span>
+      <span onclick="selectStar(5)">★</span>
+    </div>
+    <div class="form-group" style="margin-bottom:10px;">
+      <input type="text" class="review-input" id="reviewName" placeholder="Your name" style="margin-bottom:8px;width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;color:var(--text);font-size:13px;outline:none;">
+    </div>
+    <textarea class="review-input" id="reviewText" rows="3" placeholder="Share your experience..."></textarea>
+    <button class="btn-primary" style="margin-top:10px;font-size:13px;padding:11px;" onclick="submitReview()">Submit Review →</button>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature"><div class="feature-icon">🚚</div><div class="feature-title">Free Delivery</div><div class="feature-desc">On orders above ₹499</div></div>
+  <div class="feature"><div class="feature-icon">↩️</div><div class="feature-title">Easy Returns</div><div class="feature-desc">7-day hassle-free</div></div>
+  <div class="feature"><div class="feature-icon">🔒</div><div class="feature-title">Secure Payment</div><div class="feature-desc">UPI, Card, NetBanking</div></div>
+  <div class="feature"><div class="feature-icon">💬</div><div class="feature-title">24/7 Support</div><div class="feature-desc">WhatsApp support</div></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">⚡ PHANTOM<span>.</span></div>
+  <p>India's premium destination for mobile accessories.</p>
+  <div class="footer-links">
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+    <a href="#">Returns</a>
+    <a href="#">Privacy</a>
+    <a href="auth.html">Sell on PHANTOM</a>
+  </div>
+  <div class="footer-bottom">© 2025 PHANTOM Store. Made with ❤️ in India</div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/917000000000?text=Hello! I'm interested in PHANTOM products" class="whatsapp-btn" target="_blank">💬</a>
+
+<!-- OVERLAY & CART -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header"><h2>🛒 Your Cart</h2><button class="close-drawer" onclick="closeCart()">✕</button></div>
+  <div id="cart-body"><div class="empty-cart"><div>🛒</div>Cart is empty!</div></div>
+  <div id="cart-footer" style="display:none">
+    <div class="coupon-cart">
+      <input type="text" id="cartCoupon" placeholder="Coupon code...">
+      <button onclick="applyCartCoupon()">Apply</button>
+    </div>
+    <div class="cart-summary">
+      <div class="summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+      <div class="summary-row"><span>Discount</span><span id="discount-row" style="color:#22c55e">-₹0</span></div>
+      <div class="summary-row"><span>Delivery</span><span style="color:#22c55e">FREE ✓</span></div>
+      <div class="summary-row total"><span>Total</span><span id="total">₹0</span></div>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Pay 💳</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// DATA
+const products=[
+  {name:'Wireless Earbuds Pro',price:999,icon:'🎧',cat:'audio'},
+  {name:'Fast Charger 65W',price:599,icon:'⚡',cat:'charging'},
+  {name:'MagSafe Phone Case',price:299,icon:'📱',cat:'protection'},
+  {name:'Power Bank 20000mAh',price:1299,icon:'🔋',cat:'charging'},
+  {name:'Screen Protector',price:199,icon:'🔲',cat:'protection'},
+  {name:'Game Controller',price:799,icon:'🎮',cat:'gaming'},
+  {name:'Over-Ear Headphones',price:1499,icon:'🎙️',cat:'audio'},
+  {name:'Wireless Charger',price:449,icon:'🌀',cat:'charging'},
+  {name:'USB-C Cable',price:149,icon:'🔗',cat:'cables'},
+  {name:'BT Speaker',price:1099,icon:'🔊',cat:'audio'}
+];
+
+const coupons={PHANTOM10:10,SAVE20:20,FIRST15:15};
+let cart=[],wishlist=[],selectedStars=0,discount=0,isDark=true;
+
+// LOADER
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hide');},1600);});
+
+// TIMER
+function startTimer(){
+  let end=new Date();end.setHours(23,59,59,0);
+  setInterval(()=>{
+    const now=new Date(),diff=end-now;
+    if(diff<=0){end=new Date();end.setDate(end.getDate()+1);end.setHours(23,59,59,0);return;}
+    const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('hours').textContent=String(h).padStart(2,'0');
+    document.getElementById('mins').textContent=String(m).padStart(2,'0');
+    document.getElementById('secs').textContent=String(s).padStart(2,'0');
+  },1000);
+}
+startTimer();
+
+// THEME
+function toggleTheme(){
+  isDark=!isDark;
+  document.body.classList.toggle('light');
+  document.getElementById('themeBtn').textContent=isDark?'🌙':'☀️';
+  document.querySelector('nav').style.background=isDark?'rgba(8,8,16,0.92)':'rgba(255,255,255,0.92)';
+}
+
+// SEARCH
+function searchProducts(query){
+  const cards=document.querySelectorAll('.card');
+  const noResults=document.getElementById('no-results');
+  let found=0;
+  cards.forEach(card=>{
+    const name=card.dataset.name||'';
+    const cat=card.dataset.cat||'';
+    if(query===''||name.toLowerCase().includes(query.toLowerCase())||cat.toLowerCase().includes(query.toLowerCase())){
+      card.classList.remove('hidden');found++;
+    }else{card.classList.add('hidden');}
+  });
+  noResults.style.display=found===0&&query!==''?'block':'none';
+  const sr=document.getElementById('searchResults');
+  if(query.length>1){
+    const matches=products.filter(p=>p.name.toLowerCase().includes(query.toLowerCase()));
+    sr.innerHTML=matches.map(p=>`<div class="search-item" onclick="addToCart(null,'${p.name}',${p.price},'${p.icon}');hideSearch();">${p.icon} <span>${p.name}</span> <span style="color:#7c3aed;font-weight:700;margin-left:auto;">₹${p.price}</span></div>`).join('');
+    sr.classList.add('show');
+  }else{sr.classList.remove('show');}
+}
+function showSearchResults(){if(document.getElementById('searchInput').value.length>1)document.getElementById('searchResults').classList.add('show');}
+function hideSearch(){document.getElementById('searchResults').classList.remove('show');document.getElementById('searchInput').value='';}
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-search'))hideSearch();});
+
+// FILTER
+function filterCat(cat,el){
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.card').forEach(card=>{
+    card.classList.toggle('hidden',cat!=='all'&&card.dataset.cat!==cat);
+  });
+}
+
+// WISHLIST
+function toggleWish(btn,name,price,icon){
+  const idx=wishlist.findIndex(w=>w.name===name);
+  if(idx>-1){wishlist.splice(idx,1);btn.classList.remove('liked');btn.textContent='♡';showToast('💔 Removed from wishlist');}
+  else{wishlist.push({name,price,icon});btn.classList.add('liked');btn.textContent='♥';showToast('❤️ Added to wishlist!');}
+}
+function showWishlist(){
+  if(wishlist.length===0){showToast('💔 Wishlist is empty!');return;}
+  showToast('❤️ '+wishlist.length+' items in wishlist!');
+}
+
+// CART
+function addToCart(btn,name,price,icon){
+  const ex=cart.find(i=>i.name===name);
+  if(ex)ex.qty++;else cart.push({name,price,icon,qty:1});
+  updateCartUI();
+  if(btn){btn.textContent='✓ Added!';btn.classList.add('added');setTimeout(()=>{btn.textContent='Add to Cart';btn.classList.remove('added');},1500);}
+  showToast('✅ '+name+' added!');
+}
+function removeFromCart(name){cart=cart.filter(i=>i.name!==name);updateCartUI();}
+function changeQty(name,delta){
+  const item=cart.find(i=>i.name===name);
+  if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0){removeFromCart(name);return;}
+  updateCartUI();
+}
+function updateCartUI(){
+  const subtotal=cart.reduce((a,i)=>a+i.price*i.qty,0);
+  const total=Math.max(0,subtotal-discount);
+  const count=cart.reduce((a,i)=>a+i.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  document.getElementById('subtotal').textContent='₹'+subtotal.toLocaleString('en-IN');
+  document.getElementById('discount-row').textContent='-₹'+discount.toLocaleString('en-IN');
+  document.getElementById('total').textContent='₹'+total.toLocaleString('en-IN');
+  document.getElementById('cart-footer').style.display=cart.length?'block':'none';
+  const body=document.getElementById('cart-body');
+  if(!cart.length){body.innerHTML='<div class="empty-cart"><div>🛒</div>Cart is empty!</div>';return;}
+  body.innerHTML=cart.map(i=>`<div class="cart-item"><div class="cart-item-icon">${i.icon}</div><div class="cart-item-info"><div class="cart-item-name">${i.name}</div><div class="cart-item-price">₹${(i.price*i.qty).toLocaleString('en-IN')}</div><div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('${i.name}',-1)">−</button><span class="qty-num">${i.qty}</span><button class="qty-btn" onclick="changeQty('${i.name}',1)">+</button></div></div><button class="remove-btn" onclick="removeFromCart('${i.name}')">🗑️</button></div>`).join('');
+}
+function openCart(){document.getElementById('overlay').classList.add('open');document.getElementById('drawer').classList.add('open');}
+function closeCart(){document.getElementById('overlay').classList.remove('open');document.getElementById('drawer').classList.remove('open');}
+
+// COUPON
+function applyCoupon(){
+  const code=document.getElementById('couponInput').value.toUpperCase().trim();
+  const msg=document.getElementById('couponMsg');
+  if(coupons[code]){msg.textContent='✅ Coupon applied! '+coupons[code]+'% off in cart!';msg.className='coupon-msg success';}
+  else{msg.textContent='❌ Invalid coupon code!';msg.className='coupon-msg error';}
+}
+function applyCartCoupon(){
+  const code=document.getElementById('cartCoupon').value.toUpperCase().trim();
+  const subtotal=cart.reduce((a,i)=>a+i.price*i.qty,0);
+  if(coupons[code]){discount=Math.floor(subtotal*coupons[code]/100);showToast('✅ '+coupons[code]+'% discount applied!');updateCartUI();}
+  else{showToast('❌ Invalid coupon!');}}
+
+// REVIEWS
+function selectStar(n){
+  selectedStars=n;
+  document.querySelectorAll('#starSelect span').forEach((s,i)=>{s.classList.toggle('selected',i<n);});
+}
+function submitReview(){
+  const name=document.getElementById('reviewName').value.trim();
+  const text=document.getElementById('reviewText').value.trim();
+  if(!name||!text||!selectedStars){showToast('⚠️ Please fill all fields & select stars!');return;}
+  const stars='★'.repeat(selectedStars)+'☆'.repeat(5-selectedStars);
+  const initials=name.charAt(0).toUpperCase();
+  const html=`<div class="review-card"><div class="review-header"><div class="review-avatar">${initials}</div><div><div class="review-name">${name}</div><div class="review-date">Just now</div></div></div><div class="review-stars">${stars}</div><div class="review-text">${text}</div></div>`;
+  document.getElementById('reviews-list').insertAdjacentHTML('afterbegin',html);
+  document.getElementById('reviewName').value='';
+  document.getElementById('reviewText').value='';
+  selectedStars=0;
+  document.querySelectorAll('#starSelect span').forEach(s=>s.classList.remove('selected'));
+  showToast('✅ Review submitted! Thank you!');
+}
+
+// CHECKOUT
+function checkout(){
+  if(!cart.length)return;
+  const total=Math.max(0,cart.reduce((a,i)=>a+i.price*i.qty,0)-discount);
+  alert('🎉 Order Placed!\nTotal: ₹'+total.toLocaleString('en-IN')+'\n\nThank you for shopping at PHANTOM!\nYou will receive a WhatsApp confirmation shortly.');
+  cart=[];discount=0;updateCartUI();closeCart();
+}
+
+function scrollToProducts(){document.getElementById('products-section').scrollIntoView({behavior:'smooth'});}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+</script>
+</body>
+  </html>
